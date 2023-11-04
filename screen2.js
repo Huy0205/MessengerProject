@@ -34,17 +34,31 @@ return(
         </View>
   </View>
 <View style={{justifyContent:'center', alignItems:'center'}}>
-    <TextInput placeholder="FullName" style={{backgroundColor:'white', width:300, height:50, borderRadius:25,margin:'2%'}} >
+  <View  style={{backgroundColor:'white', width:300, height :55, borderRadius:25}}>
+    <TextInput placeholder="FullName" style={{backgroundColor:'white', borderRadius:25,width:250, height:50, borderRadius:25,position:'absolute',left:50}} >
     </TextInput>
-
-    <TextInput placeholder="Email" style={{backgroundColor:'white', width:300, height:50, borderRadius:25,margin:'2%'}} >
+    <Image source={require('./assets/user 1.png')} 
+          style={{width:14,height:14,position:'absolute',top:22,left:20}}
+  ></Image>
+    </View>
+   
+   <View style={{backgroundColor:'white', width:300, height :55, borderRadius:25,margin:'5%'}}>
+    <TextInput placeholder="Email" style={{backgroundColor:'white', width:250, height:50, borderRadius:25,position:'absolute',left:50}} >
     </TextInput>
+    <Image source={require('./assets/email_561127 1.png')} 
+          style={{width:14,height:14,position:'absolute',top:22,left:20}}
+  ></Image>
+    </View>
 
-    <TextInput placeholder="Password" style={{backgroundColor:'white', width:300, height:50, borderRadius:25,margin:'2%'}} >
+    <View style={{backgroundColor:'white', width:300, height :55, borderRadius:25}}>
+    <TextInput placeholder="Password" style={{backgroundColor:'white',width:250, height:50, borderRadius:25,position:'absolute',left:50}} >
     </TextInput>
+    <Image source={require('./assets/key 1.png')} 
+          style={{width:14,height:14,position:'absolute',top:22,left:20}}
+  ></Image>
+    </View>
 
-
-<View style={{margin:5}}>
+<View style={{margin:10}}>
     <TouchableOpacity style={{backgroundColor:'#F3D9D8',width:300, height:50,borderRadius:25}}><Text style={{textAlign:'center', padding:15,fontWeight:'bold'}}>Login</Text></TouchableOpacity>
     <Text style={{color:'white',left:20}}>Already have an account?   <Pressable onPress={()=>{navigation.navigate('Screen1',textI)}}><Text style={{color:'#1F1F1F'}}>Log In</Text></Pressable></Text>
     </View>

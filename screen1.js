@@ -36,17 +36,30 @@ return(
         </View>
   </View>
 <View style={{justifyContent:'center', alignItems:'center'}}>
-    <TextInput placeholder="username" style={{backgroundColor:'white', width:300, height:55, borderRadius:25,margin:'5%'}} >
+  <View style={{backgroundColor:'white', width:300, height :55, borderRadius:25,margin:'5%'}}>
+    <TextInput placeholder="username" style={{backgroundColor:'white', width:250, height:50, borderRadius:25,position:'absolute',left:50}} >
     </TextInput>
+ <Image source={require('./assets/user 1.png')} 
+          style={{width:14,height:14,position:'absolute',top:22,left:20}}
+  ></Image>
 
-    <TextInput placeholder="password" style={{backgroundColor:'white', width:300, height:55, borderRadius:25}} >
+
+</View>
+
+<View style={{backgroundColor:'white', width:300, height :55, borderRadius:25}}>
+    <TextInput placeholder="password" style={{backgroundColor:'white',  width:250, height:50,borderRadius:25,position:'absolute',left:50}} >
     </TextInput>
+    <Image source={require('./assets/key 1.png')} 
+          style={{width:14,height:14,position:'absolute',top:22,left:20}}
+  ></Image>
+
+    </View>
   <View style={{position:'absolute', left:190, top:150}}>
     <Pressable><Text style={{fontSize:14}}>Forget password</Text></Pressable>
     </View>
 
 <View style={{margin:25}}>
-    <TouchableOpacity style={{backgroundColor:'#F3D9D8',width:300, height:55,borderRadius:25}}><Text style={{textAlign:'center', padding:15,fontWeight:'bold'}}>Login</Text></TouchableOpacity>
+    <TouchableOpacity onPress={()=>{navigation.navigate('Screen3',textI)}} style={{backgroundColor:'#F3D9D8',width:300, height:55,borderRadius:25}} ><Text style={{textAlign:'center', padding:15,fontWeight:'bold'}}>Login</Text></TouchableOpacity>
     <Text style={{color:'white',left:20}}>Dont have an account?   <Pressable onPress={()=>{navigation.navigate('Screen2',textI)}}><Text style={{color:'#1F1F1F'}}>Sign Up</Text></Pressable></Text>
     </View>
 <View><Text style={{color:'white'}}>─────────  or  ────────</Text></View>
