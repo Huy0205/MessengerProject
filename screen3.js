@@ -12,7 +12,7 @@ return(
      <View style={styles.container} >
       <Image source={require('./assets/Ellipse 3.png')}
        style={{width:'100%', height:360}}> 
-    </Image>
+    </Image> 
     <View style={{position:'absolute',top:60,left:15}} >
     <Image source={require('./assets/Screenshot_2023-11-04_171510-removebg-preview.png')}
       style={{width:341,height:273}}>
@@ -24,7 +24,7 @@ return(
   <View ><Text style={{textAlign:'center', fontSize:18, color:'white',fontFamily:'Poppins'}}>Every day is a good day for <br/> Yoga</Text></View>
 
 <View style={{justifyContent:'center', alignItems:'center', margin:30}}>
-<TouchableOpacity onPress={()=>{navigation.navigate('Screen4',textI)}} style={{backgroundColor:'#F3D9D8',width:300, height:55,borderRadius:25}} ><Text style={{textAlign:'center', padding:15,fontWeight:'bold'}}>START NOW</Text></TouchableOpacity>
+<TouchableOpacity onPress={()=>{navigation.navigate('Profile',textI)}} style={{backgroundColor:'#F3D9D8',width:300, height:55,borderRadius:25}} ><Text style={{textAlign:'center', padding:15,fontWeight:'bold'}}>START NOW</Text></TouchableOpacity>
 
 </View>
 

@@ -91,7 +91,7 @@ return(
      ></Image>
     </Pressable>
 
-
+   <TouchableOpacity onPress={()=>{navigation.navigate('Profile',textI)}} style={{height:40, width:40, backgroundColor:'red'}}><Text>WTF</Text></TouchableOpacity>
 </View>
 
 

@@ -8,6 +8,8 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Screen1  from './screen1';
 import Screen2  from './screen2';
 import Screen3  from './screen3';
+import profile from './profile';
+import setting from './setting';
 const BottomTab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
 export default function App() {
@@ -17,9 +19,12 @@ export default function App() {
 <Stack.Navigator initalRouteName="Home"
      screenOptions={{headerShown:false}}
 >
-<Stack.Screen name="Screen1" component={Screen1}/>
+<Stack.Screen name="Screen1" component={Screen1}/> 
 <Stack.Screen name="Screen2" component={Screen2}/>
 <Stack.Screen name="Screen3" component={Screen3}/>
+
+<Stack.Screen name="Profile" component={profile}/>
+<Stack.Screen name="Setting" component={setting}/>
 </Stack.Navigator>
 
     </NavigationContainer>
