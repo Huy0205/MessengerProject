@@ -5,24 +5,9 @@ function screen3 ({navigation}){
 const[textI,setTextI] = useState('')
 const [loginStatus, setLoginStatus] = useState(''); // Lưu trạng thái đăng nhập
 const [showPassword, setShowPassword] = useState('false'); // Lưu trạng thái hiển thị mật khẩu
-const arr = [
-  { name: 'dat', password: '12345' },
-  { name: 'teo', password: '123456' },
-];
 
-const checkLogin = () => {
-  const nameInput = document.getElementById('name').value;
-  const passInput = document.getElementById('password').value;
 
-  for (let i = 0; i < arr.length; i++) {
-    if (nameInput === arr[i].name && passInput === arr[i].password) {
-      alert('Login Success');
-         <TouchableOpacity onPress={navigation.navigate('',textI)}><Text>Login</Text></TouchableOpacity>
-      return;
-    }
-  }
-  alert('Login Failure');
-};
+
 return(
      <View style={styles.container} >
       <Image source={require('./assets/Ellipse 3.png')}

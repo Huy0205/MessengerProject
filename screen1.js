@@ -1,28 +1,37 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { StyleSheet, Text, View, TouchableOpacity, TextInput,Image, Pressable } from "react-native";
 import { Octicons } from '@expo/vector-icons';
 function Screen1 ({navigation}){
 const[textI,setTextI] = useState('')
-const [loginStatus, setLoginStatus] = useState(''); // Lưu trạng thái đăng nhập
-const [showPassword, setShowPassword] = useState('false'); // Lưu trạng thái hiển thị mật khẩu
-const arr = [
-  { name: 'dat', password: '12345' },
-  { name: 'teo', password: '123456' },
-];
+const[username, setname ]= useState('');
+const[password, setpass] = useState('');
+const [data,setData]= useState([]);
 
-const checkLogin = () => {
-  const nameInput = document.getElementById('name').value;
-  const passInput = document.getElementById('password').value;
-
-  for (let i = 0; i < arr.length; i++) {
-    if (nameInput === arr[i].name && passInput === arr[i].password) {
-      alert('Login Success');
-         <TouchableOpacity onPress={navigation.navigate('',textI)}><Text>Login</Text></TouchableOpacity>
-      return;
-    }
-  }
-  alert('Login Failure');
+const fetchdata = async ()=>{fetch("https://65042ff8c8869921ae24a8f8.mockapi.io/demo1/api/v1/User")
+.then(response => response.json())
+.then(json=> setData(json))
+.catch(error=>console.error(error))
 };
+useEffect(()=>{
+  fetchdata();
+},[]);
+
+const checkuser = (name, pass)=>{
+  const res= data.find(item => item.username === name && item.password === pass)
+  return res;
+}
+
+const xulylogin = ()=>{
+   if(checkuser(username,password)){
+    navigation.navigate('Screen3')
+    global.appName  =username;
+   }else{
+    console.log('ko dung!')
+   }
+
+}
+
+
 
 
 return(
@@ -37,7 +46,7 @@ return(
   </View>
 <View style={{justifyContent:'center', alignItems:'center'}}>
   <View style={{backgroundColor:'white', width:300, height :55, borderRadius:25,margin:'5%'}}>
-    <TextInput placeholder="username" style={{backgroundColor:'white', width:250, height:50, borderRadius:25,position:'absolute',left:50}} >
+    <TextInput placeholder="username"  onChangeText={(text)=>(setname(text))} style={{backgroundColor:'white', width:250, height:50, borderRadius:25,position:'absolute',left:50}} >
     </TextInput>
  <Image source={require('./assets/user 1.png')} 
           style={{width:14,height:14,position:'absolute',top:22,left:20}}
@@ -47,7 +56,7 @@ return(
 </View>
 
 <View style={{backgroundColor:'white', width:300, height :55, borderRadius:25}}>
-    <TextInput placeholder="password" style={{backgroundColor:'white',  width:250, height:50,borderRadius:25,position:'absolute',left:50}} >
+    <TextInput   secureTextEntry={true}  placeholder="password" onChangeText={(text)=>{setpass(text)}}  style={{backgroundColor:'white',  width:250, height:50,borderRadius:25,position:'absolute',left:50}} >
     </TextInput>
     <Image source={require('./assets/key 1.png')} 
           style={{width:14,height:14,position:'absolute',top:22,left:20}}
@@ -59,7 +68,7 @@ return(
     </View>
 
 <View style={{margin:25}}>
-    <TouchableOpacity onPress={()=>{navigation.navigate('Screen3',textI)}} style={{backgroundColor:'#F3D9D8',width:300, height:55,borderRadius:25}} ><Text style={{textAlign:'center', padding:15,fontWeight:'bold'}}>Login</Text></TouchableOpacity>
+    <TouchableOpacity  style={{backgroundColor:'#F3D9D8',width:300, height:55,borderRadius:25}} onPress={xulylogin} ><Text style={{textAlign:'center', padding:15,fontWeight:'bold'}}>Login</Text></TouchableOpacity>
     <Text style={{color:'white',left:20}}>Dont have an account?   <Pressable onPress={()=>{navigation.navigate('Screen2',textI)}}><Text style={{color:'#1F1F1F'}}>Sign Up</Text></Pressable></Text>
     </View>
 <View><Text style={{color:'white'}}>─────────  or  ────────</Text></View>
