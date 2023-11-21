@@ -5,8 +5,11 @@ function Screen1 ({navigation}){
 const[textI,setTextI] = useState('')
 const[username, setname ]= useState('');
 const[password, setpass] = useState('');
+const [newData, setNewData] = useState([]);
 const [data,setData]= useState([]);
-
+const email = global.appEmail;
+const phone = global.appPhone;
+const image = global.appImage;
 const fetchdata = async ()=>{fetch("https://65042ff8c8869921ae24a8f8.mockapi.io/demo1/api/v1/User")
 .then(response => response.json())
 .then(json=> setData(json))
@@ -17,14 +20,19 @@ useEffect(()=>{
 },[]);
 
 const checkuser = (name, pass)=>{
-  const res= data.find(item => item.username === name && item.password === pass)
+  const res= data.find(item => item.username === name && item.password === pass )
   return res;
 }
+
 
 const xulylogin = ()=>{
    if(checkuser(username,password)){
     navigation.navigate('Screen3')
-    global.appName  =username;
+    global.appName  = username;
+    global.appEmail = checkuser(username, password).email; 
+    global.appPhone = checkuser(username, password).phone; 
+    global.appImage = checkuser(username, password).image; 
+    setNewData(checkuser(username, password));
    }else{
     console.log('ko dung!')
    }
@@ -90,8 +98,6 @@ return(
              style={{width:30, height:30}}    
      ></Image>
     </Pressable>
-
-   <TouchableOpacity onPress={()=>{navigation.navigate('Profile',textI)}} style={{height:40, width:40, backgroundColor:'red'}}><Text>WTF</Text></TouchableOpacity>
 </View>
 
 
