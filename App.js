@@ -10,6 +10,7 @@ import Screen2  from './screen2';
 import Screen3  from './screen3';
 import profile from './profile';
 import setting from './setting';
+import editProfile from './editProfile';
 const BottomTab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
 export default function App() {
@@ -25,6 +26,7 @@ export default function App() {
 
 <Stack.Screen name="Profile" component={profile}/>
 <Stack.Screen name="Setting" component={setting}/>
+<Stack.Screen name="EditProfile" component={editProfile}/>
 </Stack.Navigator>
 
     </NavigationContainer>

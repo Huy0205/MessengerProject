@@ -3,7 +3,7 @@ import { StyleSheet, Text, View, TouchableOpacity, TextInput,Image, Pressable } 
 import { Octicons } from '@expo/vector-icons';
 
 export default function profile({navigation}){
-   
+    const[textI,setTextI] = useState('')
     return(
      
         <View style={styles.container}>
@@ -26,7 +26,7 @@ export default function profile({navigation}){
                         </Image> 
                         <Text style={{top:5}}>Account</Text>
              </View>
-           <Pressable style={{width:200 , flexDirection:'row',top:20}}>
+           <Pressable onPress={()=>{navigation.navigate('EditProfile',textI)}} style={{width:200 , flexDirection:'row',top:20}}>
             <Text style={{fontSize:20, left:10}}>Edit profile</Text>
             <Image source={require('./assets/next 4.png')}
                    style={{width:30, height:30, left:260}}

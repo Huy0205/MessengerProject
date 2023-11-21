@@ -22,7 +22,7 @@ export default function profile({navigation}){
             </View>
 
             <View style={{shadowOffset: {width: 0,height: 3},shadowRadius: 5,shadowOpacity: 0.5,height:200, width:'100%',backgroundColor:'gray', justifyContent:'center', alignItems:'center', borderRadius:20,backgroundColor:'white', shadowColor: 'black'}}>
-             <Pressable>
+             <Pressable onPress={()=>{navigation.navigate('EditProfile',textI)}}>
              <Image source={require('./assets/user (1) 1.png')}
                     style={{width:25, height:25, left:175,top:45}}
              >
