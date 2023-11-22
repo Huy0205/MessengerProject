@@ -29,6 +29,7 @@ const xulylogin = ()=>{
    if(checkuser(username,password)){
     navigation.navigate('Screen3')
     global.appName  = username;
+    global.appPass  = password;
     global.appEmail = checkuser(username, password).email; 
     global.appPhone = checkuser(username, password).phone; 
     global.appImage = checkuser(username, password).image; 

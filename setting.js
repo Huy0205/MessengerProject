@@ -4,6 +4,51 @@ import { Octicons } from '@expo/vector-icons';
 
 export default function profile({navigation}){
     const[textI,setTextI] = useState('')
+
+    const logout = () => {
+        // Call the API to log out the user
+        fetch("https://65042ff8c8869921ae24a8f8.mockapi.io/demo1/api/v1/User", {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json",
+  },
+  body: JSON.stringify({
+    username: global.appName,
+    password: global.appPass, // Send the username as the body
+  }),
+})
+  .then((response) => {
+    // Handle the response
+    if (response.ok) {
+      // If the ok property is true, proceed to the next step
+      console.log("Logged out successfully");
+      // Clear the user data from the global object
+      delete global.appName;
+      delete global.appPass; // Delete the username
+      delete global.appEmail; // Delete the email
+      delete global.appPhone; // Delete the phone
+      delete global.appImage; // Delete the image
+      // Navigate back to the login screen
+      navigation.reset({
+        index: 0, // Set the current index to 0
+        routes: [{ name: "Screen1" }], // Set the routes array to the login screen
+      });
+    } else {
+      // If the ok property is false, show an alert message
+      alert("Failed to log out: " + response.statusText);
+    }
+  })
+  .catch((error) => {
+    // Handle the error
+    console.error(error); // Log the error
+    alert("An error occurred: " + error.message); // Show an alert message
+  });
+    }
+
+
+
+
+
     return(
      
         <View style={styles.container}>
@@ -47,7 +92,14 @@ export default function profile({navigation}){
 
 
             </View>
-
+ <View style={{justifyContent:'center', alignItems:'center'}}>
+    <Pressable onPress={()=>{logout()}} style={{flexDirection:'row'}}>
+    <Image source={require('./assets/exit 1.png')}
+           style={{width:20, height:20,top:30}}
+    ></Image>
+    <Text style={{fontSize:15, top:30, left:5}}>LOG OUT</Text>
+    </Pressable>
+ </View>
            
  
 
