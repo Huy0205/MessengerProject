@@ -13,6 +13,8 @@ function screen2({ navigation }) {
   const [textI, setTextI] = useState("");
   const [username, setName] = useState("");
   const [password, setPass] = useState("");
+  const [securePass, setsecurePass] = useState(true);
+  const [iconEye, setIconEye] = useState(require("../assets/Hide.png"));
   const [email, setEmail] = useState("");
 
   const newuser = {
@@ -177,6 +179,7 @@ function screen2({ navigation }) {
               }}
             />
             <TextInput
+              secureTextEntry={securePass}
               onChangeText={(text) => {
                 setPass(text);
               }}
@@ -188,13 +191,24 @@ function screen2({ navigation }) {
                 outline: "none",
               }}
             />
-            <Image
-              source={require("../assets/Hide.png")}
-              style={{
-                width: 15,
-                height: 15,
+            <TouchableOpacity
+              onPress={() => {
+                setsecurePass(!securePass);
+                if (securePass) {
+                  setIconEye(require("../assets/Show.png"));
+                } else {
+                  setIconEye(require("../assets/Hide.png"));
+                }
               }}
-            />
+            >
+              <Image
+                source={iconEye}
+                style={{
+                  width: 15,
+                  height: 15,
+                }}
+              />
+            </TouchableOpacity>
           </View>
 
           <TouchableOpacity

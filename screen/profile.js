@@ -9,7 +9,6 @@ import {
   Pressable,
   FlatList,
 } from "react-native";
-import { Octicons } from "@expo/vector-icons";
 
 export default function profile({ navigation }) {
   const [textI, setTextI] = useState("");
@@ -21,116 +20,146 @@ export default function profile({ navigation }) {
 
   const image = global.appImage;
   return (
-    <View style={styles.container}>
-      <View>
-        <Pressable
-          onPress={() => {
-            navigation.navigate("Setting", textI);
-          }}
-        >
+    <View style={{ flex: 1, paddingHorizontal: 15 }}>
+      <View style={{ flex: 3 }}>
+        <Pressable>
           <Image
             source={require("../assets/menu 1.png")}
-            style={{ width: 20, height: 30, left: 10 }}
+            style={{ width: 30, height: 30, resizeMode: "stretch" }}
           ></Image>
         </Pressable>
+        <View style={{ flex: 1, marginTop: 5 }}>
+          <Text style={{ fontSize: 30, fontWeight: 500 }}>My Profile</Text>
+        </View>
       </View>
-      <View style={{ left: 10 }}>
-        <Text style={{ fontSize: 35 }}>My Profile</Text>
-      </View>
+
+      <Image
+        source={require("../assets/NguyenTanHuy.png")}
+        style={{
+          width: 85,
+          height: 85,
+          borderRadius: 43,
+          position: "absolute",
+          top: 70,
+          left: 145,
+        }}
+      />
 
       <View
         style={{
-          shadowOffset: { width: 0, height: 3 },
+          shadowOffset: { width: 0, height: 2 },
           shadowRadius: 5,
-          shadowOpacity: 0.5,
-          height: 200,
-          width: "100%",
-          backgroundColor: "gray",
-          justifyContent: "center",
-          alignItems: "center",
+          shadowOpacity: 0.2,
           borderRadius: 20,
           backgroundColor: "white",
           shadowColor: "black",
+          flex: 4,
+          padding: 15,
+          marginBottom: 20,
+          backgroundColor: "transparent",
         }}
       >
-        <View style={{ justifyContent: "center", alignItems: "center" }}>
-          <Text
-            style={{
-              top: 100,
-              fontWeight: "bold",
-              textAlign: "center",
-              fontSize: 18,
+        <View style={{ flex: 1, alignItems: "flex-end" }}>
+          <Pressable
+            onPress={() => {
+              navigation.navigate("EditProfile", textI);
             }}
           >
-            {username}
-          </Text>
-          <Image
-            source={global.appImage}
-            style={{ width: 100, height: 100, bottom: 20, borderRadius: 30 }}
-          ></Image>
-          <Text>{email}</Text>
-        </View>
-        <View style={{ flexDirection: "row", top: 20, left: 100 }}>
-          <Image
-            source={require("../assets/telephone 1.png")}
-            style={{ width: 20, height: 20 }}
-          ></Image>
-          <Text>{phone}</Text>
+            <Image
+              source={require("../assets/user (1) 1.png")}
+              style={{ width: 25, height: 25 }}
+            ></Image>
+          </Pressable>
         </View>
 
-        <Pressable
-          onPress={() => {
-            navigation.navigate("EditProfile", textI);
+        <View
+          style={{ flex: 2, justifyContent: "center", alignItems: "center" }}
+        >
+          <Text style={{ fontSize: 24, fontWeight: 500 }}>asdgkgasuid</Text>
+          <View
+            style={{
+              flexDirection: "row",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <Text
+              style={{
+                fontSize: 16,
+                color: "rgba(128, 128, 128, 0.50)",
+                fontWeight: 500,
+              }}
+            >
+              ahsgdyuw
+            </Text>
+            <Pressable>
+              <Image
+                source={require("../assets/copy.png")}
+                style={{
+                  width: 16,
+                  height: 16,
+                  resizeMode: "stretch",
+                  marginLeft: 3,
+                }}
+              />
+            </Pressable>
+          </View>
+        </View>
+        <View
+          style={{
+            flex: 1,
+            flexDirection: "row",
+            justifyContent: "space-between",
+            alignItems: "center",
           }}
         >
-          <Image
-            source={require("../assets/user (1) 1.png")}
-            style={{ width: 25, height: 25, left: 170, bottom: 120 }}
-          ></Image>
-        </Pressable>
+          <View style={{ flexDirection: "row" }}>
+            <Image
+              source={require("../assets/telephone 1.png")}
+              style={{ width: 20, height: 20 }}
+            />
+            <Text>823648623</Text>
+          </View>
+          <View style={{ flexDirection: "row" }}>
+            <Image
+              source={require("../assets/telephone 1.png")}
+              style={{ width: 20, height: 20 }}
+            />
+            <Text>823648623</Text>
+          </View>
+        </View>
       </View>
 
       <View
         style={{
-          shadowOffset: { width: 0, height: 3 },
+          shadowOffset: { width: 0, height: 2 },
           shadowRadius: 5,
-          shadowOpacity: 0.5,
-          height: 200,
-          width: "100%",
-          backgroundColor: "gray",
-          justifyContent: "center",
-          alignItems: "center",
+          shadowOpacity: 0.2,
           borderRadius: 20,
           backgroundColor: "white",
-          top: 20,
+          shadowColor: "black",
+          flex: 4,
+          padding: 15,
+          marginBottom: 20,
         }}
       ></View>
-
-      <View style={{ top: 50, left: 10 }}>
-        <Text style={{ fontSize: 20, color: "gray" }}>Current works plan</Text>
+      <View style={{ flex: 4 }}>
+        <Text style={{ fontSize: 16, fontWeight: 500, marginBottom: 10 }}>
+          CURRENT WORKOUT PLAN
+        </Text>
+        <View
+          style={{
+            shadowOffset: { width: 0, height: 2 },
+            shadowRadius: 5,
+            shadowOpacity: 0.2,
+            borderRadius: 20,
+            backgroundColor: "white",
+            shadowColor: "black",
+            padding: 15,
+            flex: 1,
+          }}
+        ></View>
       </View>
-
-      <View
-        style={{
-          shadowOffset: { width: 0, height: 3 },
-          shadowRadius: 5,
-          shadowOpacity: 0.5,
-          height: 100,
-          width: "100%",
-          backgroundColor: "gray",
-          justifyContent: "center",
-          alignItems: "center",
-          borderRadius: 20,
-          backgroundColor: "white",
-          top: 60,
-        }}
-      ></View>
     </View>
   );
 }
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundImage: "red",
-  },
-});
