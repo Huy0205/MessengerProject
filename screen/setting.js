@@ -18,10 +18,6 @@ export default function Setting({ navigation }) {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({
-        username: global.appName,
-        password: global.appPass, // Send the username as the body
-      }),
     })
       .then((response) => {
         // Handle the response
@@ -37,7 +33,7 @@ export default function Setting({ navigation }) {
           // Navigate back to the login screen
           navigation.reset({
             index: 0, // Set the current index to 0
-            routes: [{ name: "Screen1" }], // Set the routes array to the login screen
+            routes: [{ name: "Login" }], // Set the routes array to the login screen
           });
         } else {
           // If the ok property is false, show an alert message

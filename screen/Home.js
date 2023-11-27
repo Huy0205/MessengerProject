@@ -19,9 +19,9 @@ function Home() {
   );
   const [date, setDate] = useState(new Date());
   const [selectedIdExercises, setSelectedIdExercises] = useState([]);
+  const [press, setPress] = useState(false);
 
   const getDayInWeek = (dayValue) => {
-    console.log(dayValue);
     switch (dayValue) {
       case 0:
         return "Sun";
@@ -104,6 +104,7 @@ function Home() {
         onPress={() => {
           setDate(item.date);
           setSelectedIdCelendar(item.date.getDate());
+          setSelectedIdExercises([]);
         }}
       >
         <Text style={{ fontSize: 28, fontWeight: "bold", color: color }}>
@@ -165,14 +166,19 @@ function Home() {
               alignItems: "center",
             }}
             onPress={() => {
+              setPress(!press);
               if (selectedIdExercises.includes(item.id)) return;
-              if (count("outdoor") === 6) {
-                alert("Đã đủ số lượng bài tập outdoor hôm nay!!!");
-                return;
-              }
-              if (count("indoor") === 6) {
-                alert("Đã đủ số lượng bài tập indoor hôm nay!!!");
-                return;
+              console.log(colorFilterIndoor === "back");
+              if (item.type === "indoor") {
+                if (count("indoor") > 5) {
+                  alert("Đã đủ số lượng bài tập indoor hôm nay!!!");
+                  return;
+                }
+              } else {
+                if (count("outdoor") > 5) {
+                  alert("Đã đủ số lượng bài tập outdoor hôm nay!!!");
+                  return;
+                }
               }
               setSelectedIdExercises([...selectedIdExercises, item.id]);
               handleStartNow(item);
@@ -199,13 +205,8 @@ function Home() {
 
   const [startNowsToday, setStartNowsToday] = useState([]);
   useEffect(() => {
-    var currentDate = new Date();
     var stingCurrentDate =
-      currentDate.getFullYear() +
-      "-" +
-      (currentDate.getMonth() + 1) +
-      "-" +
-      currentDate.getDate();
+      date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate();
     fetch("https://6563609dee04015769a71ea7.mockapi.io/exerciseSelected")
       .then((response) => response.json())
       .then((data) => {
@@ -213,7 +214,7 @@ function Home() {
           data.filter((item) => item.date === stingCurrentDate)
         );
       });
-  }, []);
+  }, [press]);
 
   console.log(startNowsToday);
 

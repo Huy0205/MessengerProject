@@ -45,7 +45,7 @@ const HomeBottomTab = ({ navigation }) => {
           tabBarIcon: ({ color }) => (
             <Image
               source={require("./assets/profile.png")}
-              style={{ width: 25, height: 25, tintColor: color  }}
+              style={{ width: 25, height: 25, tintColor: color }}
             />
           ),
           headerShown: false,
@@ -58,7 +58,7 @@ const HomeBottomTab = ({ navigation }) => {
           tabBarIcon: ({ color }) => (
             <Image
               source={require("./assets/setting.png")}
-              style={{ width: 25, height: 25, tintColor: color  }}
+              style={{ width: 25, height: 25, tintColor: color }}
             />
           ),
           headerShown: false,
@@ -72,11 +72,6 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator initalRouteName="Login">
-      <Stack.Screen
-          name="Home"
-          component={HomeBottomTab}
-          options={{ headerShown: false }}
-        />
         <Stack.Screen
           name="Login"
           component={Login}
@@ -87,13 +82,17 @@ export default function App() {
           component={SignUp}
           options={{ headerShown: false }}
         />
-        
+
         <Stack.Screen
           name="Start"
           component={Start}
           options={{ headerShown: false }}
         />
-        
+        <Stack.Screen
+          name="Home"
+          component={HomeBottomTab}
+          options={{ headerShown: false }}
+        />
         <Stack.Screen
           name="EditProfile"
           component={EditProfile}
