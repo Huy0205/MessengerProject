@@ -25,8 +25,33 @@ export default function Profile({ navigation }) {
   const steps = global.appsteps;
   const heart = global.appheart;
   const instar = global.appinstar;
+
+  const [startNowsToday, setStartNowsToday] = useState([]);
+  useEffect(() => {
+    var currentDate = new Date();
+    var stingCurrentDate =
+      currentDate.getFullYear() +
+      "-" +
+      (currentDate.getMonth() + 1) +
+      "-" +
+      currentDate.getDate();
+    fetch("https://6563609dee04015769a71ea7.mockapi.io/exerciseSelected")
+      .then((response) => response.json())
+      .then((data) => {
+        setStartNowsToday(
+          data.filter((item) => item.date === stingCurrentDate)
+        );
+      });
+  }, []);
+
+  console.log(startNowsToday);
+
+  const count = (type) => {
+    return startNowsToday.filter((item) => item.type === type).length;
+  };
+
   return (
-    <View style={{ flex: 1, paddingHorizontal: 15, backgroundColor: 'white' }}>
+    <View style={{ flex: 1, padding: 15, backgroundColor: "white" }}>
       <View style={{ flex: 3 }}>
         <Pressable
           onPress={() => {
@@ -304,16 +329,97 @@ export default function Profile({ navigation }) {
         </Text>
         <View
           style={{
-            shadowOffset: { width: 0, height: 2 },
-            shadowRadius: 5,
-            shadowOpacity: 0.2,
             borderRadius: 20,
             backgroundColor: "white",
             shadowColor: "black",
-            padding: 15,
             flex: 1,
           }}
-        ></View>
+        >
+          <View
+            style={{
+              flex: 1,
+              flexDirection: "row",
+              justifyContent: "space-between",
+              alignItems: "center",
+              shadowOffset: { width: 0, height: 2 },
+              shadowRadius: 5,
+              shadowOpacity: 0.2,
+              borderTopRightRadius: 20,
+              borderTopLeftRadius: 20,
+              padding: 15,
+            }}
+          >
+            <Text style={{ fontSize: 16, fontWeight: 500 }}>Indoor</Text>
+            <View
+              style={{
+                flexDirection: "row",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              <Text
+                style={{
+                  backgroundColor: "#47F71B",
+                  fontSize: 16,
+                  color: "white",
+                  borderRadius: 15,
+                  fontWeight: 500,
+                  paddingHorizontal: 15,
+                  paddingVertical: 2,
+                }}
+              >
+                {count("indoor")}
+                /6
+              </Text>
+              <Image
+                source={require("../assets/next 4.png")}
+                style={{ width: 20, height: 20 }}
+              ></Image>
+            </View>
+          </View>
+          <View
+            style={{
+              flex: 1,
+              flexDirection: "row",
+              justifyContent: "space-between",
+              alignItems: "center",
+              shadowOffset: { width: 0, height: 2 },
+              shadowRadius: 5,
+              shadowOpacity: 0.2,
+              borderBottomRightRadius: 20,
+              borderBottomLeftRadius: 20,
+              padding: 15,
+            }}
+          >
+            <Text style={{ fontSize: 16, fontWeight: 500 }}>Outdoor</Text>
+            <View
+              style={{
+                flexDirection: "row",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              <Text
+                style={{
+                  backgroundColor: "#14A8FC",
+                  fontSize: 16,
+                  color: "white",
+                  borderRadius: 15,
+                  fontWeight: 500,
+                  paddingHorizontal: 15,
+                  paddingVertical: 2,
+                }}
+              >
+                {count("outdoor")}
+                /6
+              </Text>
+              <Image
+                source={require("../assets/next 4.png")}
+                style={{ width: 20, height: 20 }}
+              ></Image>
+            </View>
+          </View>
+        </View>
       </View>
     </View>
   );

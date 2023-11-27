@@ -72,6 +72,11 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator initalRouteName="Login">
+      <Stack.Screen
+          name="Home"
+          component={HomeBottomTab}
+          options={{ headerShown: false }}
+        />
         <Stack.Screen
           name="Login"
           component={Login}
@@ -88,11 +93,7 @@ export default function App() {
           component={Start}
           options={{ headerShown: false }}
         />
-        <Stack.Screen
-          name="Home"
-          component={HomeBottomTab}
-          options={{ headerShown: false }}
-        />
+        
         <Stack.Screen
           name="EditProfile"
           component={EditProfile}

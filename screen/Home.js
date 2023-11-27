@@ -9,51 +9,70 @@ import {
   View,
 } from "react-native";
 function Home() {
-  const [celendar, setCelendar] = useState([]);
+  const [dataCelendar, setDataCelendar] = useState([]);
   const [exercises, setExercises] = useState([]);
   const [exercisesFilter, setExercisesFilter] = useState([]);
   const [colorFilterOutdoor, setColorFilterOutdoor] = useState("black");
   const [colorFilterIndoor, setColorFilterIndoor] = useState("lightgray");
+  const [selectedIdCelendar, setSelectedIdCelendar] = useState(
+    new Date().getDate()
+  );
+  const [date, setDate] = useState(new Date());
+  const [selectedIdExercises, setSelectedIdExercises] = useState([]);
+
+  const getDayInWeek = (dayValue) => {
+    console.log(dayValue);
+    switch (dayValue) {
+      case 0:
+        return "Sun";
+      case 1:
+        return "Mon";
+      case 2:
+        return "Tue";
+      case 3:
+        return "Wed";
+      case 4:
+        return "Thu";
+      case 5:
+        return "Fri";
+      case 6:
+        return "Sat";
+      case 7:
+        return "Sun";
+    }
+  };
 
   useEffect(() => {
-    const getDayInWeek = (dayValue) => {
-      console.log(dayValue);
-      switch (dayValue) {
-        case 0:
-          return "Sun";
-        case 1:
-          return "Mon";
-        case 2:
-          return "Tue";
-        case 3:
-          return "Wed";
-        case 4:
-          return "Thu";
-        case 5:
-          return "Fri";
-        case 6:
-          return "Sat";
-        case 7:
-          return "Sun";
-      }
-    };
-    const cuurentDay = new Date().getDay();
-    const currentDate = new Date().getDate();
-    const celendar = [];
-    for (let i = 0; i < 7; i++) {
-      if (cuurentDay + i > 7) {
-        celendar.push({
-          day: getDayInWeek(cuurentDay + i - 7),
-          date: currentDate + i,
-        });
+    const createDate = (currentDate, i) => {
+      var day, month, year;
+      var numberOfMonth = new Date(
+        currentDate.getFullYear(),
+        currentDate.getMonth() + 1,
+        0
+      ).getDate();
+      if (currentDate.getDate() + i > numberOfMonth) {
+        day = currentDate.getDate() + i - numberOfMonth;
+        if (currentDate.getMonth() + 1 > 12) {
+          month = 1;
+          year = currentDate.getFullYear();
+        } else {
+          month = currentDate.getMonth() + 1;
+          year = currentDate.getFullYear();
+        }
       } else {
-        celendar.push({
-          day: getDayInWeek(cuurentDay + i),
-          date: currentDate + i,
-        });
+        day = currentDate.getDate() + i;
+        month = currentDate.getMonth();
+        year = currentDate.getFullYear();
       }
+      return new Date(year, month, day);
+    };
+    var celendar = [];
+    for (let i = 0; i < 7; i++) {
+      celendar.push({
+        date: createDate(new Date(), i),
+      });
     }
-    setCelendar(celendar);
+    setDataCelendar(celendar);
   }, []);
 
   useEffect(() => {
@@ -66,10 +85,11 @@ function Home() {
   }, []);
 
   // Item FlatList calendar
-  const [selectedId, setSelectedId] = useState(new Date().getDate());
-  const renderItem = ({ item }) => {
-    const backgroundColor = item.date === selectedId ? "#713C5D" : "#A97D8D";
-    const color = item.date === selectedId ? "white" : "black";
+  const renderItemCelendar = ({ item }) => {
+    const backgroundColor =
+      item.date.getDate() === selectedIdCelendar ? "#713C5D" : "#A97D8D";
+    const color =
+      item.date.getDate() === selectedIdCelendar ? "white" : "black";
     return (
       <TouchableOpacity
         style={{
@@ -81,16 +101,124 @@ function Home() {
           alignItems: "center",
           marginLeft: 14,
         }}
-        onPress={() => setSelectedId(item.date)}
+        onPress={() => {
+          setDate(item.date);
+          setSelectedIdCelendar(item.date.getDate());
+        }}
       >
         <Text style={{ fontSize: 28, fontWeight: "bold", color: color }}>
-          {item.day}
+          {getDayInWeek(item.date.getDay())}
         </Text>
         <Text style={{ fontSize: 28, fontWeight: "bold", color: color }}>
-          {item.date}
+          {item.date.getDate()}
         </Text>
       </TouchableOpacity>
     );
+  };
+
+  const handleStartNow = (item) => {
+    fetch("https://6563609dee04015769a71ea7.mockapi.io/exerciseSelected", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        ...item,
+        date:
+          date.getFullYear() +
+          "-" +
+          (date.getMonth() + 1) +
+          "-" +
+          date.getDate(),
+      }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+      });
+  };
+
+  const renderItemExercises = ({ item }) => {
+    return (
+      <View
+        style={{
+          flexDirection: "row",
+          justifyContent: "space-between",
+          paddingVertical: 10,
+          paddingHorizontal: 20,
+          backgroundColor: "#F3D9D8",
+          borderRadius: 20,
+          marginBottom: 20,
+        }}
+      >
+        <View style={{ justifyContent: "space-between" }}>
+          <Text style={{ fontSize: 25, fontWeight: "bold" }}>{item.name}</Text>
+          <TouchableOpacity
+            style={{
+              backgroundColor: selectedIdExercises.includes(item.id)
+                ? "lightgray"
+                : "#713C5D",
+              borderRadius: 40,
+              width: 120,
+              padding: 10,
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+            onPress={() => {
+              if (selectedIdExercises.includes(item.id)) return;
+              if (count("outdoor") === 6) {
+                alert("Đã đủ số lượng bài tập outdoor hôm nay!!!");
+                return;
+              }
+              if (count("indoor") === 6) {
+                alert("Đã đủ số lượng bài tập indoor hôm nay!!!");
+                return;
+              }
+              setSelectedIdExercises([...selectedIdExercises, item.id]);
+              handleStartNow(item);
+            }}
+          >
+            <Text
+              style={{
+                fontSize: 15,
+                color: selectedIdExercises.includes(item.id)
+                  ? "black"
+                  : "white",
+              }}
+            >
+              {selectedIdExercises.includes(item.id)
+                ? "COMPLETED"
+                : "START NOW"}
+            </Text>
+          </TouchableOpacity>
+        </View>
+        <Image source={item.image} style={{ width: 90, height: 90 }} />
+      </View>
+    );
+  };
+
+  const [startNowsToday, setStartNowsToday] = useState([]);
+  useEffect(() => {
+    var currentDate = new Date();
+    var stingCurrentDate =
+      currentDate.getFullYear() +
+      "-" +
+      (currentDate.getMonth() + 1) +
+      "-" +
+      currentDate.getDate();
+    fetch("https://6563609dee04015769a71ea7.mockapi.io/exerciseSelected")
+      .then((response) => response.json())
+      .then((data) => {
+        setStartNowsToday(
+          data.filter((item) => item.date === stingCurrentDate)
+        );
+      });
+  }, []);
+
+  console.log(startNowsToday);
+
+  const count = (type) => {
+    return startNowsToday.filter((item) => item.type === type).length;
   };
 
   return (
@@ -102,10 +230,10 @@ function Home() {
       </View>
       <View>
         <FlatList
-          data={celendar}
-          renderItem={renderItem}
+          data={dataCelendar}
+          renderItem={renderItemCelendar}
           horizontal={true}
-          keyExtractor={(item) => item.date}
+          keyExtractor={(item) => item.date.getDate()}
         />
       </View>
 
@@ -158,40 +286,7 @@ function Home() {
         <View style={{ height: 315 }}>
           <FlatList
             data={exercisesFilter}
-            renderItem={({ item }) => (
-              <View
-                style={{
-                  flexDirection: "row",
-                  justifyContent: "space-between",
-                  paddingVertical: 10,
-                  paddingHorizontal: 20,
-                  backgroundColor: "#F3D9D8",
-                  borderRadius: 20,
-                  marginBottom: 20,
-                }}
-              >
-                <View style={{ justifyContent: "space-between" }}>
-                  <Text style={{ fontSize: 25, fontWeight: "bold" }}>
-                    {item.name}
-                  </Text>
-                  <Pressable
-                    style={{
-                      backgroundColor: "#713C5D",
-                      borderRadius: 40,
-                      width: 120,
-                      padding: 10,
-                      justifyContent: "center",
-                      alignItems: "center",
-                    }}
-                  >
-                    <Text style={{ fontSize: 15, color: "white" }}>
-                      START NOW
-                    </Text>
-                  </Pressable>
-                </View>
-                <Image source={item.image} style={{ width: 90, height: 90 }} />
-              </View>
-            )}
+            renderItem={renderItemExercises}
             keyExtractor={(item) => item.id}
           />
         </View>
