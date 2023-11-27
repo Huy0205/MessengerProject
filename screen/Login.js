@@ -18,6 +18,14 @@ function Screen1({ navigation }) {
   const email = global.appEmail;
   const phone = global.appPhone;
   const image = global.appImage;
+  const weight = global.appWeight;
+  const currentworkout = global.appCurrent;
+  const latestprogress = global.appprogress;
+  const steps = global.appsteps;
+  const measurement = global.appmeasure;
+const heart = global.appheart;
+const instar = global.appinstar;
+
   const fetchdata = async () => {
     fetch("https://65042ff8c8869921ae24a8f8.mockapi.io/demo1/api/v1/User")
       .then((response) => response.json())
@@ -43,6 +51,14 @@ function Screen1({ navigation }) {
       global.appEmail = checkuser(username, password).email;
       global.appPhone = checkuser(username, password).phone;
       global.appImage = checkuser(username, password).image;
+      global.appWeight = checkuser(username, password).weight;
+      global.appCurrent = checkuser(username, password).currentworkout;
+      global.appprogress = checkuser(username, password).latestprogress;
+      global.appmeasure = checkuser(username, password).measurement;
+      global.appsteps = checkuser(username, password).steps;
+      global.appheart = checkuser(username, password).heart;
+      global.appinstar = checkuser(username, password).instar;
+
       setNewData(checkuser(username, password));
     } else {
       alert("ko dung!");

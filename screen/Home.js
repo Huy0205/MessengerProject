@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
 import {
   FlatList,
-  SafeAreaView,
-  View,
+  TouchableOpacity,
   Text,
   Pressable,
   Image,
+  ScrollView,
+  View,
 } from "react-native";
-
 function Home() {
   const [celendar, setCelendar] = useState([]);
   const [exercises, setExercises] = useState([]);
@@ -19,6 +19,8 @@ function Home() {
     const getDayInWeek = (dayValue) => {
       console.log(dayValue);
       switch (dayValue) {
+        case 0:
+          return "Sun";
         case 1:
           return "Mon";
         case 2:
@@ -55,7 +57,7 @@ function Home() {
   }, []);
 
   useEffect(() => {
-    fetch("https://6543683301b5e279de204e68.mockapi.io/YogaApp_exercises")
+    fetch("https://6563609dee04015769a71ea7.mockapi.io/exercises")
       .then((response) => response.json())
       .then((data) => {
         setExercises(data);
@@ -63,8 +65,36 @@ function Home() {
       });
   }, []);
 
+  // Item FlatList calendar
+  const [selectedId, setSelectedId] = useState(new Date().getDate());
+  const renderItem = ({ item }) => {
+    const backgroundColor = item.date === selectedId ? "#713C5D" : "#A97D8D";
+    const color = item.date === selectedId ? "white" : "black";
+    return (
+      <TouchableOpacity
+        style={{
+          backgroundColor: backgroundColor,
+          width: 80,
+          height: 90,
+          borderRadius: 12,
+          justifyContent: "center",
+          alignItems: "center",
+          marginLeft: 14,
+        }}
+        onPress={() => setSelectedId(item.date)}
+      >
+        <Text style={{ fontSize: 28, fontWeight: "bold", color: color }}>
+          {item.day}
+        </Text>
+        <Text style={{ fontSize: 28, fontWeight: "bold", color: color }}>
+          {item.date}
+        </Text>
+      </TouchableOpacity>
+    );
+  };
+
   return (
-    <SafeAreaView style={{ width: '100%', backgroundColor: "white" }}>
+    <View style={{ width: "100%", backgroundColor: "white" }}>
       <View style={{ paddingHorizontal: 20 }}>
         <Text style={{ fontSize: 30, fontWeight: "bold", paddingVertical: 20 }}>
           Activities
@@ -73,41 +103,20 @@ function Home() {
       <View>
         <FlatList
           data={celendar}
-          renderItem={({ item }) => (
-            <View
-              style={{
-                backgroundColor: "#713C5D",
-                width: 80,
-                height: 90,
-                borderRadius: 12,
-                justifyContent: "center",
-                alignItems: "center",
-                marginLeft: 14,
-              }}
-            >
-              <Text
-                style={{ fontSize: 28, fontWeight: "bold", color: "white" }}
-              >
-                {item.day}
-              </Text>
-              <Text
-                style={{ fontSize: 28, fontWeight: "bold", color: "white" }}
-              >
-                {item.date}
-              </Text>
-            </View>
-          )}
+          renderItem={renderItem}
           horizontal={true}
           keyExtractor={(item) => item.date}
         />
       </View>
-      <View style={{ paddingHorizontal: 20 }}>
+
+      <ScrollView
+        style={{ paddingHorizontal: 20, flex: 1, overflow: "scroll" }}
+      >
         <View
           style={{ flexDirection: "row", paddingTop: 80, paddingBottom: 15 }}
         >
           <Pressable
             onPress={() => {
-              console.log("press");
               setExercisesFilter(
                 exercises.filter((item) => item.type === "outdoor")
               );
@@ -146,7 +155,7 @@ function Home() {
             </Text>
           </Pressable>
         </View>
-        <View>
+        <View style={{ height: 315 }}>
           <FlatList
             data={exercisesFilter}
             renderItem={({ item }) => (
@@ -186,8 +195,8 @@ function Home() {
             keyExtractor={(item) => item.id}
           />
         </View>
-      </View>
-    </SafeAreaView>
+      </ScrollView>
+    </View>
   );
 }
 

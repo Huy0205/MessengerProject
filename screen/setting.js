@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import {
   Text,
   View,
@@ -8,7 +8,7 @@ import {
   Switch,
 } from "react-native";
 
-export default function profile({ navigation }) {
+export default function Setting({ navigation }) {
   const [textI, setTextI] = useState("");
 
   const logout = () => {
@@ -51,6 +51,18 @@ export default function profile({ navigation }) {
       });
   };
 
+  useEffect(() => {
+    navigation.getParent()?.setOptions({
+      tabBarStyle: {
+        display: "none",
+      },
+    });
+    return () =>
+      navigation.getParent()?.setOptions({
+        tabBarStyle: undefined,
+      });
+  }, [navigation]);
+
   return (
     <View style={{ flex: 1, backgroundColor: "white" }}>
       <View
@@ -69,7 +81,7 @@ export default function profile({ navigation }) {
             style={{ width: 20, height: 30 }}
           ></Image>
         </Pressable>
-        <View style={{ flex: 1, justifyContent:'center' }}>
+        <View style={{ flex: 1, justifyContent: "center" }}>
           <Text style={{ fontSize: 30, fontWeight: 600, marginVertical: 10 }}>
             Settings
           </Text>

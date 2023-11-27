@@ -10,22 +10,32 @@ import {
   FlatList,
 } from "react-native";
 
-export default function profile({ navigation }) {
+export default function Profile({ navigation }) {
   const [textI, setTextI] = useState("");
   const [data, setData] = useState([]);
   const [newData, setNewData] = useState(data);
   const username = global.appName;
   const email = global.appEmail;
   const phone = global.appPhone;
-
+  const weight = global.appWeight;
   const image = global.appImage;
+  const currentworkout = global.appCurrent;
+  const latestprogress = global.appprogress;
+  const measurement = global.appmeasure;
+  const steps = global.appsteps;
+  const heart = global.appheart;
+  const instar = global.appinstar;
   return (
-    <View style={{ flex: 1, paddingHorizontal: 15 }}>
+    <View style={{ flex: 1, paddingHorizontal: 15, backgroundColor: 'white' }}>
       <View style={{ flex: 3 }}>
-        <Pressable>
+        <Pressable
+          onPress={() => {
+            navigation.goBack();
+          }}
+        >
           <Image
-            source={require("../assets/menu 1.png")}
-            style={{ width: 30, height: 30, resizeMode: "stretch" }}
+            source={require("../assets/next 3.png")}
+            style={{ width: 20, height: 30 }}
           ></Image>
         </Pressable>
         <View style={{ flex: 1, marginTop: 5 }}>
@@ -34,7 +44,7 @@ export default function profile({ navigation }) {
       </View>
 
       <Image
-        source={require("../assets/NguyenTanHuy.png")}
+        source={global.appImage}
         style={{
           width: 85,
           height: 85,
@@ -75,7 +85,7 @@ export default function profile({ navigation }) {
         <View
           style={{ flex: 2, justifyContent: "center", alignItems: "center" }}
         >
-          <Text style={{ fontSize: 24, fontWeight: 500 }}>asdgkgasuid</Text>
+          <Text style={{ fontSize: 24, fontWeight: 500 }}>{username}</Text>
           <View
             style={{
               flexDirection: "row",
@@ -90,7 +100,7 @@ export default function profile({ navigation }) {
                 fontWeight: 500,
               }}
             >
-              ahsgdyuw
+              {email}
             </Text>
             <Pressable>
               <Image
@@ -118,14 +128,14 @@ export default function profile({ navigation }) {
               source={require("../assets/telephone 1.png")}
               style={{ width: 20, height: 20 }}
             />
-            <Text>823648623</Text>
+            <Text>{instar}</Text>
           </View>
           <View style={{ flexDirection: "row" }}>
             <Image
               source={require("../assets/telephone 1.png")}
               style={{ width: 20, height: 20 }}
             />
-            <Text>823648623</Text>
+            <Text>{phone}</Text>
           </View>
         </View>
       </View>
@@ -139,10 +149,155 @@ export default function profile({ navigation }) {
           backgroundColor: "white",
           shadowColor: "black",
           flex: 4,
-          padding: 15,
           marginBottom: 20,
         }}
-      ></View>
+      >
+        <View style={{ flex: 1, flexDirection: "row" }}>
+          <View
+            style={{
+              flex: 1,
+              borderTopLeftRadius: 20,
+              justifyContent: "center",
+              alignItems: "center",
+              shadowOffset: { width: 0, height: 2 },
+              shadowRadius: 5,
+              shadowOpacity: 0.2,
+            }}
+          >
+            <Text style={{ fontSize: 18, fontWeight: 500 }}>{weight}</Text>
+            <Text
+              style={{
+                fontSize: 12,
+                fontWeight: 500,
+                color: "#80808080",
+                textAlign: "center",
+              }}
+            >
+              Current<br></br>Weight
+            </Text>
+          </View>
+          <View
+            style={{
+              flex: 1,
+              justifyContent: "center",
+              alignItems: "center",
+              shadowOffset: { width: 0, height: 2 },
+              shadowRadius: 5,
+              shadowOpacity: 0.2,
+            }}
+          >
+            <Text style={{ fontSize: 18, fontWeight: 500 }}>
+              {currentworkout}
+            </Text>
+            <Text
+              style={{
+                fontSize: 12,
+                fontWeight: 500,
+                color: "#80808080",
+                textAlign: "center",
+              }}
+            >
+              Current<br></br>Workout
+            </Text>
+          </View>
+          <View
+            style={{
+              flex: 1,
+              borderTopRightRadius: 20,
+              justifyContent: "center",
+              alignItems: "center",
+              shadowOffset: { width: 0, height: 2 },
+              shadowRadius: 5,
+              shadowOpacity: 0.2,
+            }}
+          >
+            <Text style={{ fontSize: 18, fontWeight: 500 }}>
+              {latestprogress}
+            </Text>
+            <Text
+              style={{
+                fontSize: 12,
+                fontWeight: 500,
+                color: "#80808080",
+                textAlign: "center",
+              }}
+            >
+              Latest Photo<br></br>Progress
+            </Text>
+          </View>
+        </View>
+        <View style={{ flex: 1, flexDirection: "row" }}>
+          <View
+            style={{
+              flex: 1,
+              borderBottomLeftRadius: 20,
+              justifyContent: "center",
+              justifyContent: "center",
+              alignItems: "center",
+              shadowOffset: { width: 0, height: 2 },
+              shadowRadius: 5,
+              shadowOpacity: 0.2,
+            }}
+          >
+            <Text style={{ fontSize: 18, fontWeight: 500 }}>{measurement}</Text>
+            <Text
+              style={{
+                fontSize: 12,
+                fontWeight: 500,
+                color: "#80808080",
+                textAlign: "center",
+              }}
+            >
+              Latest<br></br>Measurement
+            </Text>
+          </View>
+          <View
+            style={{
+              flex: 1,
+              justifyContent: "center",
+              alignItems: "center",
+              shadowOffset: { width: 0, height: 2 },
+              shadowRadius: 5,
+              shadowOpacity: 0.2,
+            }}
+          >
+            <Text style={{ fontSize: 18, fontWeight: 500 }}>{steps}</Text>
+            <Text
+              style={{
+                fontSize: 12,
+                fontWeight: 500,
+                color: "#80808080",
+                textAlign: "center",
+              }}
+            >
+              Steps
+            </Text>
+          </View>
+          <View
+            style={{
+              flex: 1,
+              borderBottomRightRadius: 20,
+              justifyContent: "center",
+              alignItems: "center",
+              shadowOffset: { width: 0, height: 2 },
+              shadowRadius: 5,
+              shadowOpacity: 0.2,
+            }}
+          >
+            <Text style={{ fontSize: 18, fontWeight: 500 }}>{heart}</Text>
+            <Text
+              style={{
+                fontSize: 12,
+                fontWeight: 500,
+                color: "#80808080",
+                textAlign: "center",
+              }}
+            >
+              Heart Rate
+            </Text>
+          </View>
+        </View>
+      </View>
       <View style={{ flex: 4 }}>
         <Text style={{ fontSize: 16, fontWeight: 500, marginBottom: 10 }}>
           CURRENT WORKOUT PLAN

@@ -10,7 +10,7 @@ import {
 } from "react-native";
 import { Octicons } from "@expo/vector-icons";
 
-export default function editProfile({ navigation }) {
+export default function EditProfile({ navigation }) {
   return (
     <View style={styles.container}>
       <View>
